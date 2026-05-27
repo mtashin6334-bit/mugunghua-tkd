@@ -236,90 +236,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 </head>
 <body>
 
-<!-- FIREBASE 설정 화면 (최초 1회) -->
-<div id="fbSetupScreen" style="display:none;position:fixed;inset:0;background:var(--navy);z-index:10000;overflow-y:auto;padding:28px 20px 40px;">
-  <div style="max-width:440px;margin:0 auto;">
-    <div style="text-align:center;margin-bottom:28px;">
-      <div style="font-size:48px;margin-bottom:8px;">🔥</div>
-      <div style="color:var(--yellow);font-size:20px;font-weight:900;margin-bottom:6px;">Firebase 초기 설정</div>
-      <div style="color:rgba(255,255,255,0.55);font-size:12px;line-height:1.8;">무궁화태권도 전용 데이터베이스를 연결합니다.<br>아래 순서대로 따라하시면 5분이면 완료돼요!</div>
-    </div>
-
-    <!-- STEP 1 -->
-    <div style="background:rgba(255,255,255,0.07);border-radius:14px;padding:16px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.12);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:var(--yellow);color:var(--navy);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
-        <div style="color:white;font-size:14px;font-weight:700;">Firebase 프로젝트 만들기</div>
-      </div>
-      <div style="color:rgba(255,255,255,0.65);font-size:12px;line-height:1.9;">
-        ① <b style="color:white;">console.firebase.google.com</b> 접속<br>
-        ② Google 계정으로 로그인<br>
-        ③ <b style="color:white;">프로젝트 추가</b> 클릭<br>
-        ④ 프로젝트 이름: <b style="color:var(--yellow);">mugunghua-tkd</b> 입력<br>
-        ⑤ Google 애널리틱스 <b style="color:white;">사용 안 함</b> → <b style="color:white;">프로젝트 만들기</b>
-      </div>
-    </div>
-
-    <!-- STEP 2 -->
-    <div style="background:rgba(255,255,255,0.07);border-radius:14px;padding:16px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.12);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:var(--yellow);color:var(--navy);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
-        <div style="color:white;font-size:14px;font-weight:700;">Realtime Database 생성</div>
-      </div>
-      <div style="color:rgba(255,255,255,0.65);font-size:12px;line-height:1.9;">
-        ① 왼쪽 메뉴 <b style="color:white;">빌드 → Realtime Database</b><br>
-        ② <b style="color:white;">데이터베이스 만들기</b> 클릭<br>
-        ③ 위치: <b style="color:var(--yellow);">asia-southeast1 (싱가포르)</b> 선택<br>
-        ④ 보안 규칙: <b style="color:white;">테스트 모드</b> 선택 → <b style="color:white;">사용 설정</b>
-      </div>
-    </div>
-
-    <!-- STEP 3 -->
-    <div style="background:rgba(255,255,255,0.07);border-radius:14px;padding:16px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.12);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:var(--yellow);color:var(--navy);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
-        <div style="color:white;font-size:14px;font-weight:700;">앱 등록 → 설정값 복사</div>
-      </div>
-      <div style="color:rgba(255,255,255,0.65);font-size:12px;line-height:1.9;">
-        ① 프로젝트 홈에서 <b style="color:white;">⚙️ 프로젝트 설정</b><br>
-        ② 아래로 스크롤 → <b style="color:white;">&lt;/&gt; 웹 아이콘</b> 클릭<br>
-        ③ 앱 닉네임 입력 → <b style="color:white;">앱 등록</b><br>
-        ④ 화면에 나오는 <b style="color:var(--yellow);">firebaseConfig</b> 값들을 아래에 입력
-      </div>
-    </div>
-
-    <!-- STEP 4 — 입력 폼 -->
-    <div style="background:rgba(255,255,255,0.07);border-radius:14px;padding:16px;margin-bottom:18px;border:1.5px solid var(--yellow);">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:var(--yellow);color:var(--navy);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
-        <div style="color:white;font-size:14px;font-weight:700;">설정값 입력</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div>
-          <div style="color:rgba(255,255,255,0.5);font-size:10px;font-weight:700;margin-bottom:3px;">apiKey</div>
-          <input id="fb_apiKey" placeholder="AIzaSy..." style="width:100%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 11px;color:white;font-size:12px;font-family:inherit;">
-        </div>
-        <div>
-          <div style="color:rgba(255,255,255,0.5);font-size:10px;font-weight:700;margin-bottom:3px;">authDomain</div>
-          <input id="fb_authDomain" placeholder="xxx.firebaseapp.com" style="width:100%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 11px;color:white;font-size:12px;font-family:inherit;">
-        </div>
-        <div>
-          <div style="color:rgba(255,255,255,0.5);font-size:10px;font-weight:700;margin-bottom:3px;">databaseURL</div>
-          <input id="fb_databaseURL" placeholder="https://xxx-default-rtdb.asia-southeast1.firebasedatabase.app" style="width:100%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 11px;color:white;font-size:12px;font-family:inherit;">
-        </div>
-        <div>
-          <div style="color:rgba(255,255,255,0.5);font-size:10px;font-weight:700;margin-bottom:3px;">projectId</div>
-          <input id="fb_projectId" placeholder="mugunghua-tkd" style="width:100%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:9px 11px;color:white;font-size:12px;font-family:inherit;">
-        </div>
-      </div>
-      <div style="color:rgba(255,255,255,0.35);font-size:10px;margin-top:8px;">※ 입력값은 이 기기에 저장되어 다음부터 자동 연결됩니다</div>
-    </div>
-
-    <button onclick="saveFbSetup()" style="width:100%;background:var(--yellow);color:var(--navy);border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:900;cursor:pointer;font-family:inherit;margin-bottom:10px;">✅ 설정 완료 — 시작하기</button>
-    <button onclick="skipFbSetup()" style="width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);border-radius:12px;padding:12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">나중에 설정 (오프라인으로 시작)</button>
-  </div>
-</div>
-
 <!-- PIN SCREEN -->
 <div id="pinScreen">
   <div class="pin-logo">🥋</div>
@@ -513,21 +429,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
           <div style="font-size:10px;color:var(--gray);margin-top:2px;">명 ↑꾹누르면명단</div>
         </div>
       </div>
-      <div style="padding:4px 10px 6px;"><button class="save-btn" onclick="saveMonthSetup()">📊 월별 현황 업데이트</button></div>
-      <div style="padding:0 10px 12px;"><button onclick="openResetConfirm()" style="width:100%;background:var(--red-lt);border:1.5px solid var(--red);color:var(--red);border-radius:10px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">🗑️ 전체 데이터 초기화</button></div>
+      <div style="padding:4px 10px 12px;"><button class="save-btn" onclick="saveMonthSetup()">📊 월별 현황 업데이트</button></div>
     </div>
   </div>
-
-<!-- 초기화 확인 모달 -->
-<div class="modal-bg hidden" id="resetModal">
-  <div class="modal-box">
-    <div class="modal-title" style="color:var(--red);">⚠️ 전체 데이터 초기화</div>
-    <div class="modal-desc">출석 인원, 신규·복관·휴퇴관, 기준총원 등 <b>모든 저장 데이터가 삭제</b>됩니다.<br><br>정말 초기화하려면 아래에 <b>확인</b>을 입력하세요.</div>
-    <input type="text" class="modal-input" id="resetConfirmInput" placeholder="확인" style="letter-spacing:2px;">
-    <button class="modal-btn primary" style="background:var(--red);" onclick="confirmReset()">초기화 실행</button>
-    <button class="modal-btn secondary" onclick="closeResetModal()">취소</button>
-  </div>
-</div>
 
   <!-- MONTHLY VIEW -->
   <div class="view" id="viewMonthly">
@@ -684,13 +588,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       </div>
     </div>
 
-    <div class="guide-card">
-      <div class="guide-hd">⚙️ Firebase 설정 변경</div>
-      <div class="guide-body">
-        <div style="font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:12px;">Firebase 프로젝트를 바꾸거나 처음 설정하려면 아래 버튼을 누르세요.</div>
-        <button onclick="openFbSetup()" style="width:100%;background:var(--navy);color:white;border:none;border-radius:10px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">🔥 Firebase 설정 화면 열기</button>
-      </div>
-    </div>
+    <!-- 🐱 GitHub 업로드 가이드 -->
     <div class="guide-card">
       <div class="guide-hd">🐱 GitHub Pages로 링크 배포하기</div>
       <div class="guide-body">
@@ -762,49 +660,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 // ══════════════════════════════════════════
 // FIREBASE CONFIG (코드 내장 — 별도 설정 불필요)
 // ══════════════════════════════════════════
-// ══════════════════════════════════════════
-// FIREBASE CONFIG — 로컬스토리지에서 불러옴
-// ══════════════════════════════════════════
-function getStoredFbConfig() {
-  try {
-    const s = localStorage.getItem('fb_config');
-    return s ? JSON.parse(s) : null;
-  } catch(e) { return null; }
-}
-let FB_CONFIG = getStoredFbConfig();
-
-// Firebase 설정 화면 처리
-function saveFbSetup() {
-  const apiKey      = document.getElementById('fb_apiKey').value.trim();
-  const authDomain  = document.getElementById('fb_authDomain').value.trim();
-  const databaseURL = document.getElementById('fb_databaseURL').value.trim();
-  const projectId   = document.getElementById('fb_projectId').value.trim();
-  if (!apiKey || !databaseURL || !projectId) {
-    alert('apiKey, databaseURL, projectId는 필수입니다!');
-    return;
-  }
-  const cfg = { apiKey, authDomain, databaseURL, projectId };
-  localStorage.setItem('fb_config', JSON.stringify(cfg));
-  FB_CONFIG = cfg;
-  document.getElementById('fbSetupScreen').style.display = 'none';
-  initPIN();
-}
-function skipFbSetup() {
-  // 오프라인으로 그냥 시작 (FB_CONFIG = null 유지)
-  document.getElementById('fbSetupScreen').style.display = 'none';
-  initPIN();
-}
-function openFbSetup() {
-  // 설정 화면 다시 열기 (설정 변경용)
-  const cfg = getStoredFbConfig();
-  if (cfg) {
-    document.getElementById('fb_apiKey').value      = cfg.apiKey      || '';
-    document.getElementById('fb_authDomain').value  = cfg.authDomain  || '';
-    document.getElementById('fb_databaseURL').value = cfg.databaseURL || '';
-    document.getElementById('fb_projectId').value   = cfg.projectId   || '';
-  }
-  document.getElementById('fbSetupScreen').style.display = 'block';
-}
+const FB_CONFIG = {
+  apiKey: "AIzaSyDyVDbcllQS_OUVImNdhfr6mxGtr5i_dFo",
+  authDomain: "mugunghua-tkd.firebaseapp.com",
+  databaseURL: "https://mugunghua-tkd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "mugunghua-tkd"
+};
 
 // ══════════════════════════════════════════
 // CONSTANTS & STATE
@@ -834,9 +695,13 @@ let pinLoaded = false; // Firebase PIN 로드 완료 여부
 
 // 앱 시작 시 Firebase에서 PIN 먼저 로드
 async function loadPINFromFirebase() {
+  // 이미 인증된 기기면 바로 통과
   const authed = localStorage.getItem('pin_authed');
-  if (authed === 'yes') { pinLoaded = true; hidePinScreen(); return; }
-  if (!FB_CONFIG) { fbPIN=''; pinLoaded=true; document.getElementById('pinLabel').textContent='새 비밀번호 4자리를 설정하세요'; return; }
+  if (authed === 'yes') {
+    pinLoaded = true;
+    hidePinScreen();
+    return;
+  }
   try {
     await loadFBScripts();
     if (!firebase.apps.length) firebase.initializeApp(FB_CONFIG);
@@ -919,7 +784,6 @@ function initPIN() {
 // FIREBASE
 // ══════════════════════════════════════════
 async function initFirebase() {
-  if(!FB_CONFIG){ setSync(false,'Firebase 미설정 — 오프라인 모드'); return; }
   setSync(false,'Firebase 연결 중...');
   try {
     await loadFBScripts();
@@ -1428,39 +1292,6 @@ async function saveMonthSetup(){
   updateMonthStrip();
   showToast('📊 기준총원 저장 완료! 신규/복관/휴퇴관은 일일 변동 명단에서 자동 집계됩니다.');
 }
-// ══════════════════════════════════════════
-// 전체 데이터 초기화
-// ══════════════════════════════════════════
-function openResetConfirm(){
-  document.getElementById('resetConfirmInput').value='';
-  document.getElementById('resetModal').classList.remove('hidden');
-}
-function closeResetModal(){
-  document.getElementById('resetModal').classList.add('hidden');
-}
-async function confirmReset(){
-  const v=document.getElementById('resetConfirmInput').value.trim();
-  if(v!=='확인'){showToast('❌ "확인"을 정확히 입력하세요');return;}
-  closeResetModal();
-  showToast('🗑️ 초기화 중...');
-  // 로컬 초기화
-  allData={};
-  monthData={};
-  // Firebase 초기화
-  if(fbRef&&isOnline){
-    try{
-      await fbRef.child('days').remove();
-      await fbRef.child('months').remove();
-      showToast('✅ 전체 데이터 초기화 완료!');
-    }catch(e){showToast('오류: '+e.message);}
-  } else {
-    showToast('✅ 로컬 초기화 완료 (오프라인)');
-  }
-  loadCurrentDay();
-  updateMonthStrip();
-  renderInlineCal();
-}
-
 async function saveMonthNote(){
   const mk=monthKey(currentDate);
   if(!monthData[mk]) monthData[mk]={};
@@ -1671,13 +1502,7 @@ function startApp(){
   renderNotifList(); initFirebase();
 }
 
-window.onload=()=>{
-  if(!getStoredFbConfig()){
-    document.getElementById('fbSetupScreen').style.display='block';
-  } else {
-    initPIN();
-  }
-};
+window.onload=()=>initPIN();
 </script>
 </body>
 </html>
