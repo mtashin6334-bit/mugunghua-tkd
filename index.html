@@ -356,10 +356,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
 
     <!-- 순서: 이벤트 → 회의 → 교육 → 상담 → 출석인원 → 결석자 -->
-    <div class="sec"><div class="sec-hd red">📌 이번 달 중점사항</div><textarea class="ta" id="taEvent" placeholder="이번 달 중점사항을 입력하세요..."></textarea></div>
-    <div class="sec"><div class="sec-hd navy">✅ 이번 주 실천사항</div><textarea class="ta" id="taMtg" placeholder="이번 주 실천사항을 입력하세요..."></textarea></div>
-    <div class="sec"><div class="sec-hd teal">🥋 오늘의 수련</div><textarea class="ta" id="taEdu" placeholder="오늘의 수련 내용을 입력하세요..."></textarea></div>
-    <div class="sec"><div class="sec-hd purple">⚠️ 오늘의 특이사항</div><textarea class="ta" id="taCons" placeholder="오늘의 특이사항을 입력하세요..."></textarea></div>
+    <div class="sec"><div class="sec-hd red">🎉 이벤트 내용</div><textarea class="ta" id="taEvent" placeholder="오늘의 이벤트 내용을 입력하세요..."></textarea></div>
+    <div class="sec"><div class="sec-hd navy">💬 회의 내용</div><textarea class="ta" id="taMtg" placeholder="회의 내용을 입력하세요..."></textarea></div>
+    <div class="sec"><div class="sec-hd teal">📚 교육 내용</div><textarea class="ta" id="taEdu" placeholder="오늘의 교육 내용을 입력하세요..."></textarea></div>
+    <div class="sec"><div class="sec-hd purple">🤝 상담 내용</div><textarea class="ta" id="taCons" placeholder="상담 내용을 입력하세요..."></textarea></div>
 
     <!-- 출석 카드 — 상담 내용 아래로 이동 -->
     <div class="sec">
@@ -661,18 +661,18 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 // FIREBASE CONFIG (코드 내장 — 별도 설정 불필요)
 // ══════════════════════════════════════════
 const FB_CONFIG = {
-  apiKey: "AIzaSyDyVDbcllQS_OUVImNdhfr6mxGtr5i_dFo",
-  authDomain: "mugunghua-tkd.firebaseapp.com",
-  databaseURL: "https://mugunghua-tkd-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "mugunghua-tkd"
+  apiKey: "AIzaSyBlIIcYYAXCkYAkih_YKoJ0pzXBqf_WWBk",
+  authDomain: "taesarang-dojang.firebaseapp.com",
+  databaseURL: "https://taesarang-dojang-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "taesarang-dojang"
 };
 
 // ══════════════════════════════════════════
 // CONSTANTS & STATE
 // ══════════════════════════════════════════
 const DAYS_KR = ['일','월','화','수','목','금','토'];
-const BU_LABELS = ['1부-태권도','1부-줄넘기','2부-태권도','2부-줄넘기','3부-초등부','3부-유치부','4부-초등부','4부-유치부','5부-초등부','5부-승품단','6부-품새단','6부-줄넘기','7부-시범단','7부-성인부'];
-const BU_DEFAULT = [20,20,20,20,20,20,20,20,20,20,20,20,20,20];
+const BU_LABELS = ['1부-태권도','1부-줄넘기','2부-태권도','2부-줄넘기','3부-초등부','3부-유치부','4부-초등부','4부-유치부','5부-초등부','5부-승품단','6부-품새단','6부-줄넘기','7부-시범단','7부-성인부','미등원'];
+const BU_DEFAULT = [20,20,20,20,20,20,20,20,20,20,20,20,20,20,20];
 const BU_COUNT = BU_LABELS.length;
 const MY_ID = 'u_' + Math.random().toString(36).slice(2,8);
 
@@ -973,7 +973,7 @@ function monthKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStar
 function buildAttTable() {
   const wrap=document.getElementById('buCardsWrap'); wrap.innerHTML='';
   wrap.style.cssText='';
-  // 7부 그룹 정의: [그룹명, 서브1, 서브2, 인덱스1, 인덱스2]
+  // 부 그룹 정의: [그룹명, 서브항목들, 인덱스들]
   const groups=[
     {name:'1부',sub:['태권도','줄넘기'],idx:[0,1]},
     {name:'2부',sub:['태권도','줄넘기'],idx:[2,3]},
@@ -982,6 +982,7 @@ function buildAttTable() {
     {name:'5부',sub:['초등부','승품단'],idx:[8,9]},
     {name:'6부',sub:['품새단','줄넘기'],idx:[10,11]},
     {name:'7부',sub:['시범단','성인부'],idx:[12,13]},
+    {name:'미등원',sub:['미등원'],idx:[14]},
   ];
   const table=document.createElement('div');
   table.style.cssText='width:100%;overflow-x:auto;';
@@ -990,7 +991,7 @@ function buildAttTable() {
       <tr style="background:var(--sky);">
         <th style="font-size:11px;font-weight:700;color:var(--blue);padding:7px 4px;text-align:center;border-bottom:2px solid #BBDEFB;width:50px;">부</th>`;
   groups.forEach(g=>{
-    html+=`<th colspan="2" style="font-size:11px;font-weight:900;color:var(--navy);padding:7px 4px;text-align:center;border-bottom:2px solid #BBDEFB;border-left:1px solid #BBDEFB;">${g.name}</th>`;
+    html+=`<th colspan="${g.sub.length}" style="font-size:11px;font-weight:900;color:var(--navy);padding:7px 4px;text-align:center;border-bottom:2px solid #BBDEFB;border-left:1px solid #BBDEFB;">${g.name}</th>`;
   });
   html+=`</tr><tr style="background:#F0F6FF;">
     <th style="font-size:10px;font-weight:700;color:var(--gray);padding:5px 4px;text-align:center;border-bottom:1px solid #BBDEFB;">구분</th>`;
@@ -1012,11 +1013,15 @@ function buildAttTable() {
 }
 function updateTotals(){
   let sA=0;
-  for(let i=0;i<BU_COUNT;i++) sA+=parseInt(document.getElementById('att_'+i)?.value)||0;
+  // 마지막 칸(미등원)은 출석 인원 합계에서 제외
+  for(let i=0;i<BU_COUNT-1;i++) sA+=parseInt(document.getElementById('att_'+i)?.value)||0;
+  // 미등원 인원 (별도 집계)
+  const noShow=parseInt(document.getElementById('att_'+(BU_COUNT-1))?.value)||0;
   // 현재 날짜까지의 총원 기준으로 결석 계산
   const {newC,restC,outC,base} = getCountsUpTo(dateKey(currentDate));
   const totalMember = base + newC + restC - outC;
-  const sAbs = totalMember > 0 ? Math.max(0, totalMember - sA) : 0;
+  // 전체 결석 수에서 미등원 인원도 차감
+  const sAbs = totalMember > 0 ? Math.max(0, totalMember - sA - noShow) : 0;
   document.getElementById('tot_att').textContent=sA;
   document.getElementById('tot_abs').textContent=sAbs;
   countAbsNames(); // 결석 계산 바뀔 때 배지 색 동기화
